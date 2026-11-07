@@ -1,311 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Personal Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Raj Kumar — Network Engineer resume and portfolio.">
+  <title>Raj Kumar | Network Engineer</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(18, 31, 52, .82);
+      --panel-border: rgba(148, 163, 184, .16);
+      --text: #edf4ff;
+      --muted: #a9b8cc;
+      --accent: #55d6be;
+      --accent2: #78a9ff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.65;
+      background:
+        radial-gradient(ellipse at 12% 8%, rgba(57, 116, 177, .23), transparent 34rem),
+        radial-gradient(ellipse at 88% 32%, rgba(37, 173, 151, .13), transparent 32rem),
+        var(--bg);
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1050px, calc(100% - 40px)); margin: auto; }
+    header { padding: 22px 0; }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+    .brand { font-weight: 800; letter-spacing: .08em; color: var(--accent); }
+    .navlinks { display: flex; gap: 22px; flex-wrap: wrap; color: var(--muted); font-size: .92rem; }
+    .navlinks a:hover { color: var(--accent); }
+    .hero { padding: 88px 0 72px; display: grid; grid-template-columns: 1.5fr .8fr; gap: 42px; align-items: center; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: .19em; font-size: .75rem; font-weight: 800; }
+    h1 { font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1.03; margin: 14px 0; letter-spacing: -.055em; }
+    h1 span { color: var(--accent); }
+    .role { color: var(--accent2); font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 650; }
+    .intro { color: var(--muted); max-width: 650px; font-size: 1.05rem; margin: 20px 0 28px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { padding: 11px 18px; border-radius: 10px; font-weight: 750; border: 1px solid var(--panel-border); transition: transform .2s, background .2s; }
+    .btn.primary { background: var(--accent); color: #07131b; border-color: var(--accent); }
+    .btn:hover { transform: translateY(-3px); }
+    .hero-card, .card, .stat { background: var(--panel); border: 1px solid var(--panel-border); border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,.18); backdrop-filter: blur(12px); }
+    .hero-card { padding: 28px; animation: floatIn .8s both; }
+    .hero-card h3 { margin: 0 0 18px; }
+    .quick { display: grid; gap: 14px; color: var(--muted); font-size: .93rem; }
+    .quick strong { display: block; color: var(--text); font-size: .98rem; }
+    section { padding: 35px 0 48px; }
+    .section-head { margin-bottom: 23px; }
+    .section-head .eyebrow { margin-bottom: 4px; }
+    h2 { font-size: clamp(1.7rem, 4vw, 2.35rem); margin: 0; letter-spacing: -.035em; }
+    .summary { color: var(--muted); max-width: 850px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+    .stat { padding: 18px 20px; }
+    .stat b { color: var(--accent); font-size: 1.7rem; display: block; }
+    .stat span { color: var(--muted); font-size: .87rem; }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill { padding: 8px 13px; border-radius: 999px; color: #dceaff; background: rgba(120,169,255,.10); border: 1px solid rgba(120,169,255,.22); font-size: .9rem; }
+    .skill:nth-child(3n) { background: rgba(85,214,190,.09); border-color: rgba(85,214,190,.2); }
+    .timeline { display: grid; gap: 18px; }
+    .card { padding: 24px; opacity: 0; transform: translateY(22px); animation: reveal .7s ease forwards; }
+    .card:nth-child(2) { animation-delay: .18s; }
+    .card:nth-child(3) { animation-delay: .34s; }
+    .card-top { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+    .card h3 { margin: 0; font-size: 1.15rem; }
+    .company { color: var(--accent2); font-weight: 650; margin-top: 3px; }
+    .date { color: var(--muted); font-size: .88rem; white-space: nowrap; }
+    ul { margin: 16px 0 0; padding-left: 20px; color: var(--muted); }
+    li { padding: 3px 0; }
+    .education-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .education-grid .card { animation-delay: .1s; }
+    .edu-meta { color: var(--muted); font-size: .9rem; margin-top: 7px; }
+    .certs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .cert { padding: 18px; border-left: 3px solid var(--accent); background: rgba(18,31,52,.65); border-radius: 0 12px 12px 0; color: var(--muted); }
+    .cert strong { color: var(--text); display: block; }
+    footer { margin-top: 28px; padding: 30px 0 45px; border-top: 1px solid var(--panel-border); color: var(--muted); text-align: center; font-size: .9rem; }
+    footer a { color: var(--accent); }
+    @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 0 45px; }
+      .hero-card { max-width: 520px; }
+      .education-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .certs { grid-template-columns: 1fr; }
+      .navlinks { gap: 12px; font-size: .82rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .card { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
-
-    <nav class="navbar">
-
-        <a href="#" class="navbar__logo"><i class="ri-code-s-slash-line"></i> Raj.</a>
-
-        <div class="navbar__menu">
-            <a href="#" class="navbar__link">Home</a>
-            <a href="#" class="navbar__link">Projects</a>
-            <a href="#" class="navbar__link">Skills
-            <a href="#About" class="navbar__link">About</a>
-        </div>
-
-        <div class="navbar__actions">
-            <div class="navbar__location">
-                <h5>IND, Pune</h5>
-                <p>10:30:00 am</p>
-            </div>
-            <button class="btn">Get a Quote</button>
-        </div>
-
+  <header class="wrap">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#">RK<span style="color:#edf4ff">.</span></a>
+      <div class="navlinks">
+        <a href="#about">About</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#contact">Contact</a>
+      </div>
     </nav>
+  </header>
 
-    <section id="About" class="hero">
-
-        <div class="hero__content">
-            <img src="assets/profile.png" alt="Profile Image" class="hero__image">
-            <h2>Hello! I'm Raj Kumar</h2>
+  <main class="wrap">
+    <section class="hero" id="about">
+      <div>
+        <div class="eyebrow">Network Operations · Pune, India</div>
+        <h1>Raj <span>Kumar</span></h1>
+        <div class="role">Network Engineer</div>
+        <p class="intro">Network Operations Center Engineer with 2 years of experience across enterprise networking, NOC operations and passive optical networks. Experienced in OLT/ONT provisioning, network monitoring, fault resolution and SLA-driven incident management.</p>
+        <div class="actions">
+          <a class="btn primary" href="mailto:Rajkumardas82126@gmail.com">Contact me</a>
+          <a class="btn" href="#experience">View experience ↓</a>
         </div>
-
-        <div class="hero__intro">
-            <h3>Associate Engineer Based in Pune, India</h3>
-            <p>Crafting intuitive and high-performance web interfaces for digital solutions.</p>
-            <div class="hero__actions">
-                <button class="btn">Work With Me</button>
-                <button class="btn btn--secondary">See My Portfolio</button>
-            </div>
+      </div>
+      <aside class="hero-card">
+        <h3>Quick profile</h3>
+        <div class="quick">
+          <div><strong>Current role</strong>Network Operations Center Engineer</div>
+          <div><strong>Experience</strong>2 years · Telecom & Enterprise Networks</div>
+          <div><strong>Location</strong>Pune, Maharashtra</div>
+          <div><strong>Focus areas</strong>GPON · MPLS · LAN/WAN · Network Operations</div>
         </div>
-
-        <div class="hero__socials">
-            <a href="#"><i class="ri-instagram-line"></i></a>
-            <a href="https://www.linkedin.com/in/rajkumar10-dev/" target="_blank"><i
-                    class="ri-linkedin-box-line"></i></a>
-            <a href="#"><i class="ri-youtube-line"></i></a>
-        </div>
-
+      </aside>
     </section>
 
-    <section id="Skills" class="skills">
-
-        <div class="skills__desc">
-            <h3>Multiple Projects and Technologies</h3>
-            <p>Bringing creativity and technical proficiency to building web applications and enhancing user
-                experiences.</p>
-
-            <div class="skills__actions">
-                <button class="btn">Work With Me</button>
-                <button class="btn btn--secondary">Send Email</button>
-            </div>
-        </div>
-
-        <div class="skills__stats">
-            <i class="ri-codepen-line"></i>
-            <div class="skill__info">
-                <h5>4+</h5>
-                <p>JavaScript Projects</p>
-            </div>
-            <i class="ri-reactjs-line"></i>
-            <div class="skill__info">
-                <h5>1+</h5>
-                <p>Projects</p>
-            </div>
-            <div class="skill__info">
-                <h5>5+</h5>
-                <p>Projects</p>
-            </div>
-            <i class="ri-rocket-line"></i>
-            <div class="skill__info">
-                <h5>2+</h5>
-                <p>React Projects</p>
-            </div>
-            <i class="ri-remote-control-line"></i>
-        </div>
-
+    <section>
+      <div class="section-head"><div class="eyebrow">At a glance</div><h2>Professional highlights</h2></div>
+      <div class="stats">
+        <div class="stat"><b>2,000+</b><span>User-impacting outages restored</span></div>
+        <div class="stat"><b>98%</b><span>Reported restoration success rate</span></div>
+        <div class="stat"><b>15%</b><span>Fewer recurring tickets through documentation and change management</span></div>
+      </div>
     </section>
 
-    <!-- <section class="showcase">
-
-        <div class="showcase__header">
-            <h3>I Can Help You With:</h3>
-            <button class="btn">See My Work</button>
-        </div>
-
-        <div class="showcase_categories">
-            <section class="category">
-                <div class="category__header">
-                    <div class="category__title">
-                        <i class="ri-macbook-line"></i>
-                        <h4>Portfolio Websites</h4>
-                    </div>
-                    <div class="category__desc">
-                        <p>Designing and developing eye-catching, fully responsive portfolio websites that highlight
-                            your skills and projects, ensuring a professional online presence.</p>
-                        <a href="#"><i class="ri-share-circle-line"></i></a>
-                    </div>
-                </div>
-
-                <div class="category__projects">
-                    <div class="project-card">
-                        <img src="assets/item-1.png" alt="Portfolio 1" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Portfolio-1</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-2.png" alt="Portfolio 2" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Portfolio-2</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-3.jpg" alt="Portfolio 3" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Portfolio-3</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-4.png" alt="Portfolio 4" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Portfolio-4</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="category">
-                <div class="category__header">
-                    <div class="category__title">
-                        <i class="ri-group-2-line"></i>
-                        <h4>Website Development</h4>
-                    </div>
-                    <div class="category__desc">
-                        <p>End-to-end development of responsive websites that look great on all devices, with a focus on
-                            performance and aesthetics.</p>
-                        <a href="#"><i class="ri-share-circle-line"></i></a>
-                    </div>
-                </div>
-
-                <div class="category__projects">
-                    <div class="project-card">
-                        <img src="assets/item-5.png" alt="NFT Landing" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>NFT Landing</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-6.png" alt="Music Platform" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Music Platform</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-7.png" alt="Crypto Market" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Crypto Market</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                    <div class="project-card">
-                        <img src="assets/item-8.png" alt="Jobs Platform" class="project-card__image">
-                        <div class="project-card__info">
-                            <h5>Jobs Platform</h5>
-                            <p>August 2023</p>
-                        </div>
-                        <p class="project-card__desc">Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Sit autem soluta consequatur, sequi
-                            et sint laudantium non rem veritatis.</p>
-                        <button class="btn">View Live Demo</button>
-                    </div>
-                </div>
-
-            </section>
-
-        </div>
-
-    </section> -->
-
-    <section class="career">
-        <div id="Work_Experience" class="career__jobs">
-            <h3>Work Experience</h3>
-            <div class="job">
-                <i class="ri-pen-nib-line"></i>
-                <div class="job__info">
-                    <h5>Associate Engineer at <span>TCTS, Pune</span></h5>
-                    <p>September 2024 - Present</p>
-                </div>
-            </div>
-            <div class="job">
-                <i class="ri-reactjs-fill"></i>
-                <div class="job__info">
-                    <h5>Backend Developer at <span>Helpy_Moto</span></h5>
-                    <p>Auguest 2024 – September 2024</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="career__awards">
-            <h3>Awards & Certifications</h3>
-            <div class="award">
-                <div>
-                    <i class="ri-medal-fill"></i>
-                    <div class="award__info">
-                        <h5>Spring Boot <span>Scaler learning platform</span></h5>
-                        <p>November 2024</p>
-                    </div>
-                </div>
-                <a href="#"><i class="ri-external-link-line"></i></a>
-            </div>
-            <div class="award">
-                <div>
-                    <i class="ri-javascript-line"></i>
-                    <div class="award__info">
-                        <h5>AWS Certification with Java <span>Scaler learning platform</span></h5>
-                        <p>November 2024</p>
-                    </div>
-                </div>
-                <a href="#"><i class="ri-external-link-line"></i></a>
-            </div>
-            <div class="award">
-                <div>
-                    <i class="ri-award-fill"></i>
-                    <div class="award__info">
-                        <h5>Java Language <span>Scaler learning platform</span></h5>
-                        <p>November 2024</p>
-                    </div>
-                </div>
-                <a href="#"><i class="ri-external-link-line"></i></a>
-            </div>
-        </div>
-
+    <section id="skills">
+      <div class="section-head"><div class="eyebrow">What I work with</div><h2>Technical skills</h2></div>
+      <div class="skills">
+        <span class="skill">TCP/IP</span><span class="skill">OSI Model</span><span class="skill">LAN / WAN</span>
+        <span class="skill">MPLS</span><span class="skill">GPON</span><span class="skill">DSLAM</span>
+        <span class="skill">Routing & Switching</span><span class="skill">VLANs</span><span class="skill">NAT</span>
+        <span class="skill">IPv4 / IPv6</span><span class="skill">SD-WAN</span><span class="skill">SDH</span>
+        <span class="skill">SDN</span><span class="skill">Firewall Policies</span><span class="skill">AAA / RADIUS (BRAS)</span>
+        <span class="skill">AWS Networking Fundamentals</span><span class="skill">TEJAS NMS</span><span class="skill">ECI GO Global</span>
+        <span class="skill">PuTTY</span><span class="skill">Net Vertex</span><span class="skill">MRTG</span>
+        <span class="skill">Remedy CRM</span><span class="skill">Linux / Windows</span><span class="skill">DNS / DHCP</span>
+        <span class="skill">C++</span><span class="skill">Java</span><span class="skill">Python</span><span class="skill">SQL</span>
+      </div>
     </section>
 
-    <section class="contact">
-        <h5>Got a Projects?</h5>
-        <h2>Let's Work Together!</h2>
-        <button class="btn">Send Message</button>
-        <p>Phone: <span>+91-7369936XXX</span></p>
+    <section id="experience">
+      <div class="section-head"><div class="eyebrow">Career journey</div><h2>Professional experience</h2></div>
+      <div class="timeline">
+        <article class="card">
+          <div class="card-top">
+            <div><h3>Network Operations Center Engineer</h3><div class="company">Tata Tele Business Services · Pune, Maharashtra</div></div>
+            <div class="date">Oct 2025 – Present</div>
+          </div>
+          <ul>
+            <li>Assist with installation, configuration and maintenance of routers, switches and firewall policies across enterprise LAN/WAN environments.</li>
+            <li>Monitor network health using TEJAS NMS and SNMP-based alerting; perform regular health checks and proactive troubleshooting.</li>
+            <li>Support LAN, WAN, MPLS and internet connectivity; coordinate with ISPs and vendors to resolve outages within defined SLAs.</li>
+            <li>Manage P1/P2 incidents, participate in bridge calls and maintain configuration documentation, change logs and runbooks.</li>
+            <li>Perform DNS/DHCP management and IP address administration; use Linux/Windows tools for connectivity diagnostics.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <div><h3>Associate Engineer</h3><div class="company">Tata Communications Transformation Services · Pune, Maharashtra</div></div>
+            <div class="date">Sep 2024 – Sep 2025</div>
+          </div>
+          <ul>
+            <li>Monitored and troubleshot slow/no browsing, application outages and packet-drop issues across TTML and TTL networks.</li>
+            <li>Configured and troubleshot broadband, voice, ILL, SIP and DLC services for GPON customers.</li>
+            <li>Managed GPON OLT/ONT configurations, upgrades and Type-B protection for PON ports and uplinks.</li>
+            <li>Coordinated with field operations, vendors, clients and customer teams to restore services and resolve recurring incidents.</li>
+            <li>Maintained GPON customer records, AT/HOTO documents and OLT/ONT configuration steps; performed OLT node insertion/deletion from rings and Tejas OLT GNX software upgrades.</li>
+            <li>Handled major incidents and shared RFO details with relevant teams.</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer__brand">
-            <p>© 2025 Raj kumar.</p>
-        </div>
-        <div class="footer__links">
-            <a href="#">Home</a>
-            <a href="#">Projects</a>
-            <a href="#Skills">Skills</a>
-            <a href="#Work_Experience" class="navbar__link">Work Experience</a>
-            <a href="#About">About</a>
-        </div>
-    </footer>
+    <section>
+      <div class="section-head"><div class="eyebrow">Learning & development</div><h2>Certifications and upskilling</h2></div>
+      <div class="certs">
+        <div class="cert"><strong>AWS Educate: Introduction to Generative AI</strong>Trained · 2026</div>
+        <div class="cert"><strong>AWS Educate: Getting Started with Networking</strong>Trained · 2026</div>
+        <div class="cert"><strong>CCNA</strong>In progress</div>
+        <div class="cert"><strong>Current learning</strong>Network security, Fortinet firewall concepts, advanced routing and switching</div>
+      </div>
+    </section>
 
+    <section id="education">
+      <div class="section-head"><div class="eyebrow">Academic background</div><h2>Education</h2></div>
+      <div class="education-grid">
+        <article class="card"><h3>Bachelor of Computer Applications (BCA)</h3><div class="edu-meta">Information Technology<br>Vidya Vihar Institute of Technology, Aryabhata Knowledge University<br><strong>CGPA: 8.5 · Aug 2024</strong></div></article>
+        <article class="card"><h3>Intermediate – Science (+2)</h3><div class="edu-meta">Zila School · BSEB Board<br><strong>54% · Aug 2021</strong></div></article>
+        <article class="card"><h3>Secondary School Certificate</h3><div class="edu-meta">BSEB Board, Saharsa<br><strong>60% · Mar 2019</strong></div></article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head"><div class="eyebrow">Let's connect</div><h2>Contact</h2></div>
+      <p class="summary">Open to opportunities in network engineering, NOC operations and network infrastructure.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:Rajkumardas82126@gmail.com">Rajkumardas82126@gmail.com</a>
+        <a class="btn" href="tel:+917369936811">+91 73699 36811</a>
+      </div>
+      <p class="summary">Languages: Marathi · Hindi · English</p>
+    </section>
+  </main>
+
+  <footer><div class="wrap">© <span id="year">2026</span> Raj Kumar · Network Engineer · Pune, Maharashtra</div></footer>
+  <script>
+    // Keep the footer year current without requiring any external library.
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
-
 </html>
